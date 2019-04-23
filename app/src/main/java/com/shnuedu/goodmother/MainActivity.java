@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         //设置标题为某个layout
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.customtitlebar);
-        mTitle = (TextView) findViewById(R.id.custom_title_tv_id);
-        titleConnectImage = (ImageView) findViewById(R.id.connect_state_iv_id);
+        mTitle = findViewById(R.id.custom_title_tv_id);
+        titleConnectImage = findViewById(R.id.connect_state_iv_id);
         surplusBatteryRoundProgress = (RoundProgress) findViewById(R.id.surplusBattery_rp_id);
         surplusBatteryRoundProgress.setSweepValue(80);
         surplusBatteryRoundProgress.setShowTextSize(20f);
