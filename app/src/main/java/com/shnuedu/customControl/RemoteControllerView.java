@@ -231,7 +231,8 @@ public class RemoteControllerView extends View {
         this.coreMenuStrokeSize = coreMenuStrokeSize;
         coreBitmap = bitmap;
         this.onCoreClickListener = onClickListener;
-        invalidate();
+        //通知View重绘
+        this.invalidate();
     }
 
     /**
@@ -300,7 +301,8 @@ public class RemoteControllerView extends View {
             roundMenus = new ArrayList<>();
         }
         roundMenus.add(roundMenu);
-        invalidate(); //重绘，让新添加的按钮显示在页面上
+        //通知View重绘
+        this.invalidate();
     }
 
     /**

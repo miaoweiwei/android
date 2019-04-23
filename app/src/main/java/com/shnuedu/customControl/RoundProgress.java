@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
  * Created by Amarao on 2018/6/23.
  */
 
-public class MyProgress extends View {
+public class RoundProgress extends View {
     /*
      * 这个View分为背景，灰度圆圈，进度圆弧，文字
      * */
@@ -46,19 +46,18 @@ public class MyProgress extends View {
     private float mCircleY;//圆心坐标
     private float mLineWidth;//画笔宽度
 
-
-    //    private float mCircleXY;         //圆心坐标
+    //private float mCircleXY;         //圆心坐标
     private RectF mArcRectF;         //定义的圆弧的形状和大小的范围
     private float mSweepValue = 25;  //当前进度百分比0-100
     private float mSweepAngle;       //圆弧扫过的角度，顺时针方向，单位为度
     private String proText;
     private float showTextSize = 15;//字体的默认大小
 
-    public MyProgress(Context context) {
+    public RoundProgress(Context context) {
         super(context);
     }
 
-    public MyProgress(Context context, @Nullable AttributeSet attrs) {
+    public RoundProgress(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setWillNotDraw(false);// 防止onDraw方法不执行
     }
@@ -97,10 +96,6 @@ public class MyProgress extends View {
             }
         }
         return result;
-    }
-
-    public float getShowTextSize() {
-        return showTextSize;
     }
 
     public void initView() {
@@ -217,6 +212,12 @@ public class MyProgress extends View {
     }
 
     //设置不同弧度的状态值
+
+    /**
+     * 设置当前进度
+     *
+     * @param sweepValue
+     */
     public void setSweepValue(float sweepValue) {
         if (sweepValue < 0) {
             mSweepValue = 0;
@@ -229,8 +230,14 @@ public class MyProgress extends View {
         this.invalidate();
     }
 
-    //设置字体大小
+    /**
+     * 设置字体大小
+     *
+     * @param proTextSize
+     */
     public void setShowTextSize(float proTextSize) {
         this.showTextSize = proTextSize;
+        //通知View重绘
+        this.invalidate();
     }
 }

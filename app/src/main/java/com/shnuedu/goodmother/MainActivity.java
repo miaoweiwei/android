@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.shnuedu.customControl.CustomViewPager;
 import com.shnuedu.customControl.MyFragmentPagerAdapter;
+import com.shnuedu.customControl.RoundProgress;
 import com.shnuedu.fragmentpage.DeviceFragment;
 import com.shnuedu.fragmentpage.FeaturesFragment;
 import com.shnuedu.fragmentpage.SettingFragment;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements
      */
     private TextView mTitle;
     private ImageView titleConnectImage;
+    private RoundProgress surplusBatteryRoundProgress;//剩余电量的圆形进度条
 
     private CustomViewPager mViewPager;
     private List<Fragment> mFragments;
@@ -51,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.customtitlebar);
         mTitle = (TextView) findViewById(R.id.custom_title_tv_id);
         titleConnectImage = (ImageView) findViewById(R.id.connect_state_iv_id);
+        surplusBatteryRoundProgress = (RoundProgress) findViewById(R.id.surplusBattery_rp_id);
+        surplusBatteryRoundProgress.setSweepValue(80);
+        surplusBatteryRoundProgress.setShowTextSize(20f);
 //        imageView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

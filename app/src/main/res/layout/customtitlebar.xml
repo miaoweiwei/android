@@ -5,11 +5,12 @@
     android:background="#008577"
     android:orientation="vertical">
 
-    <com.shnuedu.customControl.MyProgress
+    <com.shnuedu.customControl.RoundProgress
+        android:id="@+id/surplusBattery_rp_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/custom_title_tv_id"

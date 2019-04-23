@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.shnuedu.customControl.MyProgress;
+import com.shnuedu.customControl.RoundProgress;
 import com.shnuedu.customControl.RemoteControllerView;
 import com.shnuedu.goodmother.R;
 import com.shnuedu.tools.ImageUtils;
@@ -58,9 +58,9 @@ public class FeaturesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_features, container, false);
 
-        MyProgress myProgress = rootView.findViewById(R.id.my_id);
-        myProgress.setSweepValue(68f);
-        myProgress.setShowTextSize(40f);
+        RoundProgress roundProgress = rootView.findViewById(R.id.my_id);
+        roundProgress.setSweepValue(68f);
+        roundProgress.setShowTextSize(40f);
 
         RemoteControllerView remoteControllerView = rootView.findViewById(R.id.re_id);
         DrawRoundMenu(remoteControllerView);

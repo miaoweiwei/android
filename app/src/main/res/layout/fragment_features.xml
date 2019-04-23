@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.shnuedu.customControl.MyProgress
+        <com.shnuedu.customControl.RoundProgress
             android:id="@+id/my_id"
             android:layout_width="200dp"
             android:layout_height="200dp" />
