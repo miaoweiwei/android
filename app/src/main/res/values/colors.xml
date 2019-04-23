@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <!--  自定义的标题栏的背景颜色 -->
+    <color name="myTitleColor">#008577</color>
+
+    <!--  自定义的颜色 -->
+    <color name="TextColoDefault">#101010</color>
+    <color name="TextColorTag">#707070</color>
+
+    <color name="gray_9999">#9999</color>
+    <color name="gray_f2f2">#EEEEEE</color>
+
+</resources>

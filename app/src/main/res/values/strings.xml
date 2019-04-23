@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">好妈妈</string>
+    <string name="title_first">功能</string>
+    <string name="title_middle">统计</string>
+    <string name="title_end">设置</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_style3">Style3Activity</string>
+</resources>

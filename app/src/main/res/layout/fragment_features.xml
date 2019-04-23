@@ -1,0 +1,42 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shnuedu.fragmentpage.FeaturesFragment">
+
+    <LinearLayout
+        android:id="@+id/line_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.shnuedu.customControl.MyProgress
+            android:id="@+id/my_id"
+            android:layout_width="200dp"
+            android:layout_height="200dp" />
+
+
+        <com.shnuedu.customControl.RemoteControllerView
+            android:id="@+id/re_id"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"/>
+
+
+        <!--<com.shnuedu.customControl.RoundMenuView-->
+        <!--android:id="@+id/round_menu_view_id"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_gravity="center_horizontal" />-->
+
+        <!--<ImageButton-->
+        <!--android:id="@+id/imageButton3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@mipmap/wifi_1" />-->
+
+
+    </LinearLayout>
+
+
+</FrameLayout>
