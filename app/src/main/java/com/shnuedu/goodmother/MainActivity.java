@@ -56,17 +56,6 @@ public class MainActivity extends AppCompatActivity implements
         surplusBatteryRoundProgress = (RoundProgress) findViewById(R.id.surplusBattery_rp_id);
         surplusBatteryRoundProgress.setSweepValue(80);
         surplusBatteryRoundProgress.setShowTextSize(20f);
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                android.support.v7.app.AlertDialog.Builder messageBox = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
-//                messageBox.setIcon(R.mipmap.ic_launcher_round);
-//                messageBox.setTitle("标题");
-//                messageBox.setMessage("你点击了添加按钮");
-//                messageBox.create();
-//                messageBox.show();
-//            }
-//        });
         initView();
     }
 

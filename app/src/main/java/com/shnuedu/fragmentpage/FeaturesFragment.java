@@ -14,7 +14,7 @@ import com.shnuedu.customControl.RoundProgress;
 import com.shnuedu.customControl.RemoteControllerView;
 import com.shnuedu.goodmother.R;
 import com.shnuedu.tools.ImageUtils;
-import com.shnuedu.tools.ToastUtils;
+import com.shnuedu.tools.MessageBox;
 
 /**
  * 功能页面
@@ -107,7 +107,7 @@ public class FeaturesFragment extends Fragment {
     }
 
     private void DrawRoundMenu(RemoteControllerView roundMenuView) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             RemoteControllerView.RoundMenu roundMenu = new RemoteControllerView.RoundMenu();
             roundMenu.selectSolidColor = ContextCompat.getColor(getContext(), R.color.gray_9999);
             roundMenu.strokeColor = ContextCompat.getColor(getContext(), R.color.gray_9999);
@@ -117,7 +117,7 @@ public class FeaturesFragment extends Fragment {
             roundMenu.onClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ToastUtils.showToast(getActivity(), "点击了" + ((RemoteControllerView) view).getOnClickIndex());
+                    MessageBox.show(getActivity(), "点击了" + ((RemoteControllerView) view).getOnClickIndex());
                 }
             };
             roundMenuView.addRoundMenu(roundMenu);
@@ -126,11 +126,11 @@ public class FeaturesFragment extends Fragment {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtils.showToast(getActivity(), "点击了中心圆圈");
+                MessageBox.show(getActivity(), "点击了中心圆圈");
             }
         };
         roundMenuView.setCoreMenu(
-                ContextCompat.getColor(getActivity(), R.color.gray_f2f2),
+                ContextCompat.getColor(getContext(), R.color.lighter_gray),
                 ContextCompat.getColor(getActivity(), R.color.gray_9999),
                 ContextCompat.getColor(getActivity(), R.color.gray_9999),
                 1,

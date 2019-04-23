@@ -17,7 +17,6 @@ import java.util.List;
 import androidx.annotation.Nullable;
 
 public class RemoteControllerView extends View {
-
     //region 变量
     private static final float DEF_VIEW_SIZE = 300;
 
@@ -166,6 +165,10 @@ public class RemoteControllerView extends View {
         return true;
     }
 
+    private void addRoundMenu() {
+
+    }
+
     /***
      * 判断点击了哪一个扇形，返回索引
      * @param clickX
@@ -307,6 +310,7 @@ public class RemoteControllerView extends View {
 
     /**
      * 获取点击按钮的索引，-2是无点击，-1是点击中心圆，其他是点击菜单
+     *
      * @return
      */
     public int getOnClickIndex() {

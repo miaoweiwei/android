@@ -11,6 +11,6 @@
     <color name="TextColorTag">#707070</color>
 
     <color name="gray_9999">#9999</color>
-    <color name="gray_f2f2">#EEEEEE</color>
+    <color name="lighter_gray">#EEEEEE</color>
 
 </resources>

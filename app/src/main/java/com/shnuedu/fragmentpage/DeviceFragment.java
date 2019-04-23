@@ -1,6 +1,5 @@
 package com.shnuedu.fragmentpage;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 
 import com.shnuedu.customControl.ItemAdapter;
 import com.shnuedu.goodmother.R;
+import com.shnuedu.tools.MessageBox;
 import com.shnuedu.tools.NetUtil;
 import com.shnuedu.tools.NetworkHelp;
 
@@ -126,23 +126,14 @@ public class DeviceFragment extends Fragment {
     private ImageView.OnClickListener imgOnClickListener = new ImageView.OnClickListener() {
         @Override
         public void onClick(View v) {
-            AlertDialog.Builder messageBox = new AlertDialog.Builder(v.getContext());
-            messageBox.setIcon(R.mipmap.ic_launcher_round);
-            messageBox.setTitle("标题");
-            String str = "";
             switch (v.getId()) {
                 case R.id.wifi_iv_id:
-                    str = "Wifi";
+                    MessageBox.show(getContext(), "Wifi", "设备");
                     break;
                 case R.id.detail_iv_id:
-                    str = "详情";
+                    MessageBox.show(getContext(), "详情", "设备");
                     break;
-
             }
-
-            messageBox.setMessage(str);
-            messageBox.create();
-            messageBox.show();
         }
     };
 }
