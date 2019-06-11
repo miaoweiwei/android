@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.shnuedu.customControl.RoundProgress;
 import com.shnuedu.customControl.RemoteControllerView;
 import com.shnuedu.goodmother.R;
 import com.shnuedu.tools.ImageUtils;
@@ -20,12 +19,9 @@ import com.shnuedu.tools.MessageBox;
  * 功能页面
  */
 public class FeaturesFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -57,13 +53,9 @@ public class FeaturesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_features, container, false);
-
-        RoundProgress roundProgress = rootView.findViewById(R.id.my_id);
-        roundProgress.setSweepValue(68f);
-        roundProgress.setShowTextSize(40f);
-
         RemoteControllerView remoteControllerView = rootView.findViewById(R.id.re_id);
         DrawRoundMenu(remoteControllerView);
+
 
         return rootView;
     }
@@ -107,17 +99,31 @@ public class FeaturesFragment extends Fragment {
     }
 
     private void DrawRoundMenu(RemoteControllerView roundMenuView) {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 4; i++) {//圆盘控件添加4个按钮
             RemoteControllerView.RoundMenu roundMenu = new RemoteControllerView.RoundMenu();
             roundMenu.selectSolidColor = ContextCompat.getColor(getContext(), R.color.gray_9999);
             roundMenu.strokeColor = ContextCompat.getColor(getContext(), R.color.gray_9999);
             roundMenu.icon = ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.features_next);
-            roundMenu.strokeSize = 2;
+            roundMenu.strokeSize = 4;
             roundMenu.tag = i;
             roundMenu.onClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MessageBox.show(getActivity(), "点击了" + ((RemoteControllerView) view).getOnClickIndex());
+                    switch (((RemoteControllerView) view).getOnClickIndex()) {
+                        case 0:
+                            btnDown_Click(view);
+                            break;
+                        case 1:
+                            btnLeft_Click(view);
+                            break;
+                        case 2:
+                            btnUp_Click(view);
+                            break;
+                        case 3:
+                            btnRight_Click(view);
+                            break;
+
+                    }
                 }
             };
             roundMenuView.addRoundMenu(roundMenu);
@@ -137,5 +143,21 @@ public class FeaturesFragment extends Fragment {
                 0.43,
                 ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.ok),
                 onClickListener);
+    }
+
+    public void btnUp_Click(View v) {
+        MessageBox.show(getActivity(), "点击了上");
+    }
+
+    public void btnDown_Click(View v) {
+        MessageBox.show(getActivity(), "点击了下");
+    }
+
+    public void btnLeft_Click(View v) {
+        MessageBox.show(getActivity(), "点击了左");
+    }
+
+    public void btnRight_Click(View v) {
+        MessageBox.show(getActivity(), "点击了右");
     }
 }

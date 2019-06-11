@@ -9,9 +9,12 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
+/**
+ * 主机IP相关的方法
+ */
 public class NetUtil {
     /**
-     * 获取本机当前的IP地址
+     * 获取本机当前的IPV4地址
      *
      * @return
      */
@@ -33,8 +36,7 @@ public class NetUtil {
     }
 
     /**
-     * 获取当前的广播地址
-     *
+     * 获取当前所在网络的广播地址
      * @return
      */
     public static String getBroadcastAddr() {

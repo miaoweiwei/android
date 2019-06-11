@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements
         mViewPager.setScanScroll(false);
         mViewPager.setNoScrollAnimation(false);
 
-        mViewPager.setCurrentItem(2);
+        mViewPager.setCurrentItem(0);
     }
 
     @Override

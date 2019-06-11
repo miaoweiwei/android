@@ -4,25 +4,42 @@
     android:layout_height="match_parent"
     tools:context="com.shnuedu.fragmentpage.FeaturesFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/line_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.shnuedu.customControl.RoundProgress
-            android:id="@+id/my_id"
-            android:layout_width="200dp"
-            android:layout_height="200dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/moshi_tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textSize="20dp"
+                android:text="模式：" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/moshi_tv_id"
+                android:textSize="20dp"
+                android:text="强度：" />
+        </LinearLayout>
 
 
         <com.shnuedu.customControl.RemoteControllerView
             android:id="@+id/re_id"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </FrameLayout>
