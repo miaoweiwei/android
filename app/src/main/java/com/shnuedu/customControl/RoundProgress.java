@@ -207,6 +207,7 @@ public class RoundProgress extends View {
         float halfTextHeight = Math.abs(fm.bottom - fm.top) / 4;
         canvas.drawText(proText, 0, proText.length(), mCircleX, mCircleY + halfTextHeight, textPaint);
         //调用父类方法后，实现自己的逻辑
+        canvas.save();  //在调用 canvas.restore(); 要先调用 canvas.save() 避免报错
         canvas.restore();            //合并图像
         this.invalidate();//刷新View，在UI线程中进行
     }

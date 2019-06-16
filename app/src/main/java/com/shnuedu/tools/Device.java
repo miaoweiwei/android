@@ -15,6 +15,10 @@ public class Device {
     private String state;
     //电源电量
     private int powerBattery;
+    //运行模式
+    private String operatingMode;
+    //强度
+    private int strength;
 
     /**
      * 获取设备名字

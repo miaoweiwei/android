@@ -39,6 +39,10 @@ public class RemoteControllerView extends View {
 //    private long touchTime;//按下时间，抬起的时候判定一下，超过300毫秒算点击
     //endregion
 
+    public void setCoreBitmap(Bitmap coreBitmap) {
+        this.coreBitmap = coreBitmap;
+    }
+
     public RemoteControllerView(Context context) {
         super(context);
     }
@@ -129,6 +133,7 @@ public class RemoteControllerView extends View {
                 canvas.drawBitmap(coreBitmap, mCoreX - coreBitmap.getWidth() / 2, mCoreY - coreBitmap.getHeight() / 2, null);//在 0，0坐标开始画入src
             }
         }
+        canvas.save();  //在调用 canvas.restore(); 要先调用 canvas.save() 避免报错
         canvas.restore();            //合并图像
         this.invalidate();//刷新View，在UI线程中进行
     }

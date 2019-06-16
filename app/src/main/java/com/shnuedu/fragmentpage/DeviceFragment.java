@@ -20,27 +20,22 @@ import com.shnuedu.tools.MessageBox;
 import com.shnuedu.tools.NetworkHelp;
 
 public class DeviceFragment extends Fragment implements NetworkHelp.OnNetReceiveListener {
-    private LayoutInflater inflater;
-    private ViewGroup container;
 
-    private DeviceAdapter adapter;
+    private ListView deviceListView; //设备列表
+    private DeviceAdapter adapter;//自定的适配器
     private Button btnSearch;
-    /**
-     * 设备列表
-     */
-    private ListView deviceListView;
-    /**
-     * 刷新的图标
-     */
-    private ProgressBar refreshPg;
+    private ProgressBar refreshPg;//刷新的图标
 
     private static final String ARG_PARAM1 = "param1";
     private String mParam1;
 
     private OnFragmentInteractionListener mListener;
+    private LayoutInflater inflater;
+    private ViewGroup container;
+    final NetworkHelp networkHelp = NetworkHelp.getInstance();
 
     public DeviceFragment() {
-
+        networkHelp.onAttach(this);
     }
 
     public static DeviceFragment newInstance(String param1) {
@@ -125,8 +120,8 @@ public class DeviceFragment extends Fragment implements NetworkHelp.OnNetReceive
     }
 
     @Override
-    public void onTcpReceiveListener(Device device) {
-        System.out.println("收到Tcp信息");
+    public void onTcpReceiveListener(String msg) {
+        System.out.println("收到Tcp信息:" + msg);
     }
 
     public interface OnFragmentInteractionListener {
@@ -137,15 +132,14 @@ public class DeviceFragment extends Fragment implements NetworkHelp.OnNetReceive
     View.OnClickListener btnSearch_Click = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            final NetworkHelp networkHelp = NetworkHelp.getInstance();
-            if (refreshPg.getVisibility() == View.GONE) {
-                refreshPg.setVisibility(View.VISIBLE);
+            if (refreshPg.getVisibility() == View.GONE) {//如果是隐藏的状态
+                refreshPg.setVisibility(View.VISIBLE);  //设置显示
                 btnSearch.setText("停止搜索");
                 adapter.removeAll(); //清空原来的设备
                 adapter.notifyDataSetChanged(); //通知UI更新
-                networkHelp.startSearchDevice();
-            } else {
-                refreshPg.setVisibility(View.GONE);
+                networkHelp.startSearchDevice();//开始搜索
+            } else {//如果是显示的状态
+                refreshPg.setVisibility(View.GONE);//设置隐藏
                 btnSearch.setText("搜索");
                 networkHelp.stopSearchDevice();
             }

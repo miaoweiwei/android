@@ -19,6 +19,9 @@ import com.shnuedu.tools.MessageBox;
  * 功能页面
  */
 public class FeaturesFragment extends Fragment {
+
+    private RemoteControllerView remoteControl = null;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -53,10 +56,8 @@ public class FeaturesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_features, container, false);
-        RemoteControllerView remoteControllerView = rootView.findViewById(R.id.re_id);
-        DrawRoundMenu(remoteControllerView);
-
-
+        remoteControl = rootView.findViewById(R.id.re_id);
+        DrawRoundMenu(remoteControl);
         return rootView;
     }
 
@@ -122,7 +123,7 @@ public class FeaturesFragment extends Fragment {
                         case 3:
                             btnRight_Click(view);
                             break;
-
+                        default:
                     }
                 }
             };
@@ -132,32 +133,37 @@ public class FeaturesFragment extends Fragment {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MessageBox.show(getActivity(), "点击了中心圆圈");
+                btnCoreMenu_Click(view);
             }
         };
-        roundMenuView.setCoreMenu(
+        roundMenuView.setCoreMenu( //圆中心的按钮
                 ContextCompat.getColor(getContext(), R.color.lighter_gray),
                 ContextCompat.getColor(getActivity(), R.color.gray_9999),
                 ContextCompat.getColor(getActivity(), R.color.gray_9999),
                 1,
                 0.43,
-                ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.ok),
+                ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.notboot),
                 onClickListener);
     }
 
-    public void btnUp_Click(View v) {
+    private void btnCoreMenu_Click(View v) {
+        remoteControl.setCoreBitmap(ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.boot));
+        MessageBox.show(getActivity(), "点击了中心圆圈");
+    }
+
+    private void btnUp_Click(View v) {
         MessageBox.show(getActivity(), "点击了上");
     }
 
-    public void btnDown_Click(View v) {
+    private void btnDown_Click(View v) {
         MessageBox.show(getActivity(), "点击了下");
     }
 
-    public void btnLeft_Click(View v) {
+    private void btnLeft_Click(View v) {
         MessageBox.show(getActivity(), "点击了左");
     }
 
-    public void btnRight_Click(View v) {
+    private void btnRight_Click(View v) {
         MessageBox.show(getActivity(), "点击了右");
     }
 }
