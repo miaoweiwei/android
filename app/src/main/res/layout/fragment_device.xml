@@ -15,35 +15,34 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="选取设备"
-            android:textSize="30dp"
             android:textAlignment="center"
-            android:textColor="@color/TextColoDefault" />
+            android:textColor="@color/TextColoDefault"
+            android:textSize="30dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
-            
+
             <Button
                 android:id="@+id/search_btn_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:background="@drawable/edit_background"
+                android:text="搜索"
                 android:textAlignment="center"
-                android:textSize="20dp"
-                android:text="搜索"/>
+                android:textSize="@dimen/text_size" />
 
             <ProgressBar
                 android:id="@+id/refresh_pg_id"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
-                android:visibility="gone"
-                />
-            <!--android:visibility="gone"-->
+                android:visibility="gone" />
 
         </RelativeLayout>
 

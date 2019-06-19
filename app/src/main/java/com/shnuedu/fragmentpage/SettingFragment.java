@@ -15,6 +15,9 @@ import com.shnuedu.customControl.ItemAdapter;
 import com.shnuedu.goodmother.R;
 
 public class SettingFragment extends Fragment {
+    private boolean isLoad = false;
+
+    private View rootView = null;
     private ListView settingListView;
     private String[] setArr = {"吸乳器", "使用说明", "常见问题"};
 
@@ -45,31 +48,33 @@ public class SettingFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_setting, container, false);
-        settingListView = rootView.findViewById(R.id.setting_list_id);
+        if (!isLoad) {
+            rootView = inflater.inflate(R.layout.fragment_setting, container, false);
+            settingListView = rootView.findViewById(R.id.setting_list_id);
 
-        ItemAdapter adapter;
-        adapter = new ItemAdapter(settingListView.getContext());
+            ItemAdapter adapter;
+            adapter = new ItemAdapter(settingListView.getContext());
 //        adapter.addItem(setArr[0]);
 //        adapter.addItem(setArr[1]);
-        settingListView.setAdapter(adapter);
+            settingListView.setAdapter(adapter);
 
-        View item_switch_breastPump = inflater.inflate(R.layout.item_switch_layout, container, false);
-        TextView textView = (TextView) item_switch_breastPump.findViewById(R.id.tv_item_id);
-        textView.setText(setArr[0]);
-        ((Switch) item_switch_breastPump.findViewById(R.id.switch_item_id)).setText("设备一");
+            View item_switch_breastPump = inflater.inflate(R.layout.item_switch_layout, container, false);
+            TextView textView = (TextView) item_switch_breastPump.findViewById(R.id.tv_item_id);
+            textView.setText(setArr[0]);
+            ((Switch) item_switch_breastPump.findViewById(R.id.switch_item_id)).setText("设备一");
 
-        View item_arrow_useDescription = inflater.inflate(R.layout.item_arrow_layout, container, false);
-        ((TextView) item_arrow_useDescription.findViewById(R.id.tv_item_id)).setText(setArr[1]);
+            View item_arrow_useDescription = inflater.inflate(R.layout.item_arrow_layout, container, false);
+            ((TextView) item_arrow_useDescription.findViewById(R.id.tv_item_id)).setText(setArr[1]);
 
-        View item_arrow_commonProblem = inflater.inflate(R.layout.item_arrow_layout, container, false);
-        ((TextView) item_arrow_commonProblem.findViewById(R.id.tv_item_id)).setText(setArr[2]);
+            View item_arrow_commonProblem = inflater.inflate(R.layout.item_arrow_layout, container, false);
+            ((TextView) item_arrow_commonProblem.findViewById(R.id.tv_item_id)).setText(setArr[2]);
 
-        settingListView.addFooterView(item_switch_breastPump);
-        settingListView.addFooterView(item_arrow_useDescription);
-        settingListView.addFooterView(item_arrow_commonProblem);
-
-        settingListView.setOnItemClickListener(steListViewItemClickListener);
+            settingListView.addFooterView(item_switch_breastPump);
+            settingListView.addFooterView(item_arrow_useDescription);
+            settingListView.addFooterView(item_arrow_commonProblem);
+            settingListView.setOnItemClickListener(steListViewItemClickListener);
+            isLoad = true;
+        }
         return rootView;
     }
 
@@ -100,7 +105,6 @@ public class SettingFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onSettingFragmentInteraction(String args);
     }
-
 
     ListView.OnItemClickListener steListViewItemClickListener = new ListView.OnItemClickListener() {
         @Override

@@ -20,6 +20,7 @@ import com.shnuedu.fragmentpage.DeviceFragment;
 import com.shnuedu.fragmentpage.FeaturesFragment;
 import com.shnuedu.fragmentpage.SettingFragment;
 import com.shnuedu.fragmentpage.StatisticsFragment;
+import com.shnuedu.tools.MessageBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * 标题
      */
+    private ImageView comebcakIm;//返回按钮
+    private TextView previouspageTv;//上一页的名字
     private TextView mTitle;
     private ImageView titleConnectImage;
     private RoundProgress surplusBatteryRoundProgress;//剩余电量的圆形进度条
@@ -48,11 +51,28 @@ public class MainActivity extends AppCompatActivity implements
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         //自定义标题
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+
         setContentView(R.layout.activity_main);
         //设置标题为某个layout
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.customtitlebar);
+        comebcakIm = findViewById(R.id.comeback_iv_id);
+        comebcakIm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comeBackOnClick(v);
+            }
+        });
+        previouspageTv = findViewById(R.id.previous_page_tv_id);
+        previouspageTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                comeBackOnClick(v);
+            }
+        });
+
         mTitle = findViewById(R.id.custom_title_tv_id);
         titleConnectImage = findViewById(R.id.connect_state_iv_id);
+
         surplusBatteryRoundProgress = (RoundProgress) findViewById(R.id.surplusBattery_rp_id);
         surplusBatteryRoundProgress.setSweepValue(80);
         surplusBatteryRoundProgress.setShowTextSize(20f);
@@ -74,19 +94,26 @@ public class MainActivity extends AppCompatActivity implements
         mFragments.add(DeviceFragment.newInstance("设备"));
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragments);
         mViewPager.setAdapter(mAdapter);
+//        mViewPager.setRevealOnFocusHint();
 
-        // 注册监听 按钮点击事件
+        // 注册监听 滑动事件
         mViewPager.addOnPageChangeListener(mPageChangeListener);
         mViewPager.setScanScroll(false);
         mViewPager.setNoScrollAnimation(false);
 
         mViewPager.setCurrentItem(0);
+        setMyTitle("功能", "", false);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mViewPager.removeOnPageChangeListener(mPageChangeListener);
+    }
+
+    private void comeBackOnClick(View v) {
+        mViewPager.setCurrentItem(2, true);
+        setMyTitle("设置", "", false);
     }
 
     //region 底部导航视图 按钮点击事件 切换页面
@@ -99,23 +126,20 @@ public class MainActivity extends AppCompatActivity implements
                 case R.id.navigation_home:
                     mViewPager.setCurrentItem(0);
                     titleConnectImage.setBackground(getResources().getDrawable(R.mipmap.wifi_3));
-                    titleConnectImage.setVisibility(View.VISIBLE);//表示显示
                     break;
                 case R.id.navigation_dashboard:
                     mViewPager.setCurrentItem(1);
-//                    titleConnectImage.setVisibility(View.INVISIBLE);//表示隐藏
-                    titleConnectImage.setVisibility(View.GONE);//表示view不存在,在该项目中与上一句的作用一样
+                    titleConnectImage.setBackground(getResources().getDrawable(R.mipmap.wifi_2));
                     break;
                 case R.id.navigation_setting:
                     mViewPager.setCurrentItem(2);
-                    titleConnectImage.setBackground(getResources().getDrawable(R.mipmap.wifi_3));
-                    titleConnectImage.setVisibility(View.VISIBLE);//表示显示
+                    titleConnectImage.setBackground(getResources().getDrawable(R.mipmap.wifi_1));
                     break;
                 default:
                     flag = false;
                     break;
             }
-            setmTitleText(item.getTitle().toString());
+            setMyTitle(item.getTitle().toString(), "", false);
             return flag;
         }
     };
@@ -145,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements
                 navigation.setSelectedItemId(navigation.getMenu().getItem(i).getItemId());
                 System.out.println(String.format("滑动到 %s 页面", navigation.getMenu().getItem(i).getTitle()));
             }
+            mViewPager.setScanScroll(false);
+            mViewPager.setNoScrollAnimation(false);
         }
 
         @Override
@@ -153,25 +179,37 @@ public class MainActivity extends AppCompatActivity implements
         }
     };
 
-    private void setmTitleText(String titleText) {
+    //设置标题
+    private void setMyTitle(String titleText, String previouspageText, boolean isShowPrepage) {
         mTitle.setText(titleText);
+        previouspageTv.setText(previouspageText);
+        if (isShowPrepage) {
+            comebcakIm.setVisibility(View.VISIBLE);//显示返回键
+            previouspageTv.setVisibility(View.VISIBLE);//显示上一页名字
+        } else {
+            comebcakIm.setVisibility(View.GONE);
+            previouspageTv.setVisibility(View.GONE);
+        }
     }
 
-    @Override
+    @Override // 功能页面的事件
     public void onFeaturesFragmentInteraction(Uri uri) {
 
     }
 
-    @Override
+    @Override // 统计页面的事件
     public void onStatisticFragmentInteraction(Uri uri) {
 
     }
 
-    @Override
+    @Override// 设置页面的事件
     public void onSettingFragmentInteraction(String args) {
         switch (args) {
             case "吸乳器":
-                mViewPager.setCurrentItem(3);
+                mViewPager.setCurrentItem(3, true);
+                setMyTitle(mTitle.getText().toString(), mTitle.getText().toString(), true);
+                mViewPager.setScanScroll(true);
+                mViewPager.setNoScrollAnimation(true);
                 break;
             case "使用说明":
                 break;
@@ -180,8 +218,8 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void onDeviceFragmentInteraction(Uri uri) {
-
+    @Override // 设备页面的事件
+    public void onDeviceFragmentInteraction(String args) {
+        MessageBox.show(this, args);
     }
 }

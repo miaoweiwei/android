@@ -1,7 +1,5 @@
 package com.shnuedu.tools;
 
-import android.util.Log;
-
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
@@ -21,9 +19,9 @@ public class NetUtil {
     public static String getIp() {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
+                NetworkInterface inf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAdder = inf.getInetAddresses(); enumIpAdder.hasMoreElements(); ) {
+                    InetAddress inetAddress = enumIpAdder.nextElement();
                     if (!inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address)) {
                         return inetAddress.getHostAddress();
                     }
@@ -37,9 +35,10 @@ public class NetUtil {
 
     /**
      * 获取当前所在网络的广播地址
+     *
      * @return
      */
-    public static String getBroadcastAddr() {
+    public static String getBroadcastAdder() {
         try {
             for (Enumeration<NetworkInterface> niEnum = NetworkInterface.getNetworkInterfaces(); niEnum.hasMoreElements(); ) {
                 NetworkInterface ni = niEnum.nextElement();
@@ -47,7 +46,6 @@ public class NetUtil {
                     for (InterfaceAddress interfaceAddress : ni.getInterfaceAddresses()) {
                         if (interfaceAddress.getBroadcast() != null) {
                             String ip = interfaceAddress.getBroadcast().toString().substring(1);
-                            Log.e("Tag", "NetworkInterface---ip=" + ip);
                             return ip;
                         }
                     }

@@ -15,37 +15,82 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="模式一" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="模式二" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="模式三" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="模式四" />
+                </LinearLayout>
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/moshi_tv_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:textSize="20dp"
-                android:text="模式：" />
+                android:layout_marginBottom="10pt"
+                android:text="模式：按摩"
+                android:textSize="@dimen/text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10pt"
+                android:layout_toEndOf="@+id/moshi_tv_id"
+                android:text="频率\\幅度：幅度"
+                android:textSize="@dimen/text_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/moshi_tv_id"
-                android:textSize="20dp"
-                android:text="频率\\幅度：" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/moshi_tv_id"
-                android:textSize="20dp"
-                android:text="强度：" />
+                android:text="强度：5"
+                android:textSize="@dimen/text_size" />
         </LinearLayout>
-
 
         <com.shnuedu.customControl.RemoteControllerView
             android:id="@+id/re_id"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:layout_alignParentBottom="true"/>
+            android:layout_marginBottom="25pt" />
 
     </RelativeLayout>
-
 
 </FrameLayout>

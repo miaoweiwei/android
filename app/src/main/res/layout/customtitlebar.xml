@@ -2,15 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#008577"
+    android:background="@color/myTitleColor"
     android:orientation="vertical">
 
-    <com.shnuedu.customControl.RoundProgress
-        android:id="@+id/surplusBattery_rp_id"
+    <ImageView
+        android:id="@+id/comeback_iv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/come_back" />
+
+    <TextView
+        android:id="@+id/previous_page_tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/comeback_iv_id"
+        android:text="返回"
+        android:textColor="@color/myTitleTextColor"
+        android:textSize="@dimen/customize_title_text_size" />
 
     <TextView
         android:id="@+id/custom_title_tv_id"
@@ -19,8 +31,16 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/app_name"
-        android:textColor="#ffff"
-        android:textSize="@dimen/custim_title_text_size" />
+        android:textColor="@color/myTitleTextColor"
+        android:textSize="@dimen/customize_title_text_size" />
+
+    <com.shnuedu.customControl.RoundProgress
+        android:id="@+id/surplusBattery_rp_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="10sp"
+        android:layout_toLeftOf="@id/connect_state_iv_id" />
 
     <ImageView
         android:id="@+id/connect_state_iv_id"

@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--<color name="colorPrimary">#008577</color>-->
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <!--  自定义的标题栏的背景颜色 -->
-    <color name="myTitleColor">#008577</color>
-
+    <color name="myTitleColor">@android:color/white</color>
+    <color name="myTitleTextColor">@android:color/black</color>
     <!--  自定义的颜色 -->
     <color name="TextColoDefault">#101010</color>
     <color name="TextColorTag">#707070</color>
 
     <color name="gray_9999">#9999</color>
-    <color name="lighter_gray">#EEEEEE</color>
+    <color name="lighterGray">#EEEEEE</color>
+    <color name="editTextBackgroundColor">#EEEEEE</color>
+    <color name="radioButtonDefaultColor">#EDEBEC</color>
+    <color name="radioButtonCheckedColor">#84C832</color>
 
 </resources>

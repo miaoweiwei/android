@@ -3,21 +3,24 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#C8A030</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <!-- 自定义的窗口的 Title -->
     <style name="customTitle" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#84C832</item> <!--导航栏按钮选中时的颜色-->
+        <!--<item name="colorPrimaryDark">@android:color/white</item>&lt;!&ndash;系统状态栏颜色&ndash;&gt;-->
+        <item name="colorControlNormal">@android:color/black</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--<item name="android:windowTitleSize">@dimen/custom_title_windowTitleSize</item>//设置宽度-->
-        <item name="android:windowTitleBackgroundStyle">@color/myTitleColor</item>//设置背景风格，否则可能有边框
+        <!--设置背景风格，否则可能有边框，使用的自定义的标题，此处颜色没有用-->
+        <item name="android:windowTitleBackgroundStyle">@android:color/white</item>
         <item name="android:windowNoTitle">false</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowActionBarOverlay">false</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
     <!-- 启动页主题 -->
@@ -39,7 +42,6 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/tab_text_color_selector</item>
     </style>
-
 
 
 </resources>
