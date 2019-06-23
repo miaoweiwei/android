@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.shnuedu.customControl.RemoteControllerView;
 import com.shnuedu.goodmother.R;
 import com.shnuedu.tools.Device;
 import com.shnuedu.tools.ImageUtils;
+import com.shnuedu.tools.MessageBox;
 import com.shnuedu.tools.NetworkHelp;
 
 /**
@@ -26,13 +28,20 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
 
     private View rootView;
     private RemoteControllerView remoteControl = null;
-    private TextView textView = null;
+    private TextView mode1Tv = null;
+    private TextView mode2Tv = null;
+    private TextView mode3Tv = null;
+    private TextView mode4Tv = null;
 
+    private TextView frequencyTv = null;
+    private TextView strengthTv = null;
+
+    private Button statisticsBtn = null;
+
+    private boolean deviceStates = false;
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
-    private String mParam2;
 
     private NetworkHelp networkHelp = NetworkHelp.getInstance();
 
@@ -43,11 +52,10 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
     }
 
     // TODO: Rename and change types and number of parameters
-    public static FeaturesFragment newInstance(String param1, String param2) {
+    public static FeaturesFragment newInstance(String param1) {
         FeaturesFragment fragment = new FeaturesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +65,6 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -65,7 +72,16 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (!isLoad) {
             rootView = inflater.inflate(R.layout.fragment_features, container, false);
-            textView = rootView.findViewById(R.id.moshi_tv_id);
+            mode1Tv = rootView.findViewById(R.id.mode1_tv_id);
+            mode2Tv = rootView.findViewById(R.id.mode2_tv_id);
+            mode3Tv = rootView.findViewById(R.id.mode3_tv_id);
+            mode4Tv = rootView.findViewById(R.id.mode4_tv_id);
+
+            frequencyTv = rootView.findViewById(R.id.frequency_tv_id);
+            strengthTv = rootView.findViewById(R.id.strength_tv_id);
+
+            statisticsBtn = rootView.findViewById(R.id.statistics_btn_id);
+
             remoteControl = rootView.findViewById(R.id.re_id);
             DrawRoundMenu(remoteControl);
             isLoad = true;
@@ -159,7 +175,11 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
     }
 
     private void btnCoreMenu_Click(View v) {
-        remoteControl.setCoreBitmap(ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.boot));
+        deviceStates = !deviceStates;
+        if (deviceStates)
+            remoteControl.setCoreBitmap(ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.boot));
+        else
+            remoteControl.setCoreBitmap(ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.notboot));
         //networkHelp.sendMessageToDevice("zpf1000 \n");
     }
 
@@ -179,6 +199,11 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
         networkHelp.sendMessageToDevice("zpf0001 \n");
     }
 
+    //解析TCP发来的信息
+    private void analyze(String mas) {
+
+    }
+
     @Override
     public void onUdpReceiveListener(Device device) {
 
@@ -186,7 +211,8 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
 
     @Override
     public void onTcpReceiveListener(String msg) {
-        textView.setText(msg);
+        MessageBox.show(this.getActivity(), msg, "接收到TCP信息");
+        mode1Tv.setText(msg);
         System.out.println("TCp:" + msg);
     }
 }

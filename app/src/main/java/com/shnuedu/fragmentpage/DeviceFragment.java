@@ -163,6 +163,13 @@ public class DeviceFragment extends Fragment implements NetworkHelp.OnNetReceive
 
     @Override
     public void onTcpReceiveListener(String msg) {
+        if (msg == "busy") { //设备正在忙碌中
+            networkHelp.sendMessageToDevice("close");
+            networkHelp.closeConnect();
+        }
+        if (msg == "idle") {//设置空闲中
+            MessageBox.show(this.getActivity(), "设备%s连接成功！", "提示");
+        }
         System.out.println("收到Tcp信息:" + msg);
     }
 

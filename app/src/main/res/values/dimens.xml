@@ -6,9 +6,9 @@
     <!-- 自定义窗口标题栏的高度 -->
     <dimen name="custom_title_windowTitleSize">40dp</dimen>
     <!-- 自定义窗口标题栏的字体的尺寸 -->
-    <dimen name="customize_title_text_size">15sp</dimen>
+    <dimen name="customize_title_text_size">20dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="list_item_spacing">16dp</dimen>
     <dimen name="list_item_spacing_half">8dp</dimen>
-    <dimen name="text_size">15dp</dimen>
+    <dimen name="text_size">20dp</dimen>
 </resources>

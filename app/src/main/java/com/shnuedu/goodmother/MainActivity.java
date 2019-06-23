@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements
 
         //初始化页面
         mFragments = new ArrayList<>();
-        mFragments.add(FeaturesFragment.newInstance("功能", "功能"));
-        mFragments.add(StatisticsFragment.newInstance("统计", "统计"));
+        mFragments.add(FeaturesFragment.newInstance("功能"));
+        mFragments.add(StatisticsFragment.newInstance("统计"));
         mFragments.add(SettingFragment.newInstance("设置"));
         mFragments.add(DeviceFragment.newInstance("设备"));
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragments);
