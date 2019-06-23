@@ -13,8 +13,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class NetworkHelp extends Thread {
-    private int udpPort = 777;//执行搜索设备的udp 的端口 ESP8266 的端口
-    private int tcpPort = 888;//执行控制设备的tcp 的端口 ESP8266 的端口
+    private static final int udpPort = 777;//执行搜索设备的udp 的端口 ESP8266 的端口
+    private static final int tcpPort = 888;//执行控制设备的tcp 的端口 ESP8266 的端口
+    private static final int heartRate = 10000; //心跳时间隔
 
     private UdpClient udpClient = null;
     private TcpClient tcpClient = null;
@@ -237,7 +238,7 @@ public class NetworkHelp extends Thread {
                         sendMessage("*");
                 }
             };
-            timer.schedule(task, 2000, 2000);
+            timer.schedule(task, heartRate, heartRate);
         }
 
         /**
