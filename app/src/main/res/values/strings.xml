@@ -4,6 +4,11 @@
     <string name="title_middle">统计</string>
     <string name="title_end">设置</string>
 
+    <string name="mode1">吸乳</string>
+    <string name="mode2">开奶</string>
+    <string name="mode3">催乳</string>
+    <string name="mode4">按摩</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_style3">Style3Activity</string>

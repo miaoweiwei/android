@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/tv_item_id"
+        android:id="@+id/device_name_tv_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -14,18 +14,10 @@
         android:textColor="@color/TextColoDefault" />
 
     <ImageView
-        android:id="@+id/wifi_iv_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="10dp"
-        android:background="@mipmap/wifi_3"/>
-
-    <ImageView
         android:id="@+id/detail_iv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginRight="15dp"
-        android:background="@mipmap/details"/>
+        android:background="@mipmap/details" />
 </LinearLayout>

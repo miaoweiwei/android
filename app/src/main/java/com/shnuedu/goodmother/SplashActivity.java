@@ -31,8 +31,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         // 调用handler的sendEmptyMessageDelayed方法
         // 第一个参数类型是int，表示是什么消息；第二个参数的类型是long，表示消息发送延迟时间。
-        start2();
-        System.out.println("onCreate，handleMessage:" + Thread.currentThread().getId());
+        //start2();
+        // System.out.println("onCreate，handleMessage:" + Thread.currentThread().getId());
         start1();
     }
 

@@ -1,8 +1,8 @@
 package com.shnuedu.fragmentpage;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -12,19 +12,20 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.shnuedu.customControl.RemoteControllerView;
 import com.shnuedu.goodmother.R;
 import com.shnuedu.tools.Device;
 import com.shnuedu.tools.ImageUtils;
-import com.shnuedu.tools.MessageBox;
+import com.shnuedu.tools.Message;
+import com.shnuedu.tools.NetMessage;
 import com.shnuedu.tools.NetworkHelp;
 
 /**
  * 功能页面
  */
-public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetReceiveListener {
+public class FeaturesFragment extends Fragment {
     private boolean isLoad = false;
-
 
     private View rootView;
     private RemoteControllerView remoteControl = null;
@@ -35,10 +36,12 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
 
     private TextView frequencyTv = null;
     private TextView strengthTv = null;
+    private Handler handler = null;//用于夸线程更新UI
+    private static final int UDPRECEIVE = 0;//UDP接收到信息
+    private static final int COMMANDRESULT = 1;//TCP接收到信息
 
     private Button statisticsBtn = null;
 
-    private boolean deviceStates = false;
     private static final String ARG_PARAM1 = "param1";
 
     private String mParam1;
@@ -48,7 +51,23 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
     private OnFragmentInteractionListener mListener;
 
     public FeaturesFragment() {
-        // Required empty public constructor
+        networkHelp.addOnNetReceiveListener(netReceiveListener);
+        handler = new Handler() {
+            @Override
+            public void handleMessage(android.os.Message msg) {
+                switch (msg.what) {
+                    case UDPRECEIVE:
+                        break;
+                    case COMMANDRESULT:
+                        Device device = (Device) msg.obj;
+                        modeSwitch(device.Mode);
+                        setfrequencyStrength(device.Strength, device.Frequency, device.Select);
+                        setOnOrOff(device.IsBoot);
+                        onButtonPressed(String.format("Power#%d", device.PowerBattery));
+                        break;
+                }
+            }
+        };
     }
 
     // TODO: Rename and change types and number of parameters
@@ -84,9 +103,16 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
 
             remoteControl = rootView.findViewById(R.id.re_id);
             DrawRoundMenu(remoteControl);
+
             isLoad = true;
         }
         return rootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        networkHelp.removeOnNetReceiveListener(netReceiveListener);
     }
 
     int[] images = {R.mipmap.wifi_1, R.mipmap.wifi_2, R.mipmap.wifi_3, R.mipmap.wifi_slash};
@@ -100,9 +126,9 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
         }
     };
 
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(String args) {
         if (mListener != null) {
-            mListener.onFeaturesFragmentInteraction(uri);
+            mListener.onFeaturesFragmentInteraction(args);
         }
     }
 
@@ -124,7 +150,7 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
     }
 
     public interface OnFragmentInteractionListener {
-        void onFeaturesFragmentInteraction(Uri uri);
+        void onFeaturesFragmentInteraction(String args);
     }
 
     private void DrawRoundMenu(RemoteControllerView roundMenuView) {
@@ -175,44 +201,85 @@ public class FeaturesFragment extends Fragment implements NetworkHelp.OnNetRecei
     }
 
     private void btnCoreMenu_Click(View v) {
-        deviceStates = !deviceStates;
-        if (deviceStates)
-            remoteControl.setCoreBitmap(ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.boot));
-        else
-            remoteControl.setCoreBitmap(ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.notboot));
-        //networkHelp.sendMessageToDevice("zpf1000 \n");
+        networkHelp.sendCommand("core");
     }
 
     private void btnUp_Click(View v) {
-        networkHelp.sendMessageToDevice("zpf1000 \n");
+        networkHelp.sendCommand("up");
     }
 
     private void btnDown_Click(View v) {
-        networkHelp.sendMessageToDevice("zpf0100 \n");
+        networkHelp.sendCommand("down");
     }
 
     private void btnLeft_Click(View v) {
-        networkHelp.sendMessageToDevice("zpf0010 \n");
+        networkHelp.sendCommand("left");
     }
 
     private void btnRight_Click(View v) {
-        networkHelp.sendMessageToDevice("zpf0001 \n");
+        networkHelp.sendCommand("right");
     }
 
-    //解析TCP发来的信息
-    private void analyze(String mas) {
-
+    private void modeSwitch(int tag) {
+        mode1Tv.setTextColor(mode1Tv.getResources().getColor(android.R.color.black));
+        mode2Tv.setTextColor(mode2Tv.getResources().getColor(android.R.color.black));
+        mode3Tv.setTextColor(mode3Tv.getResources().getColor(android.R.color.black));
+        mode4Tv.setTextColor(mode4Tv.getResources().getColor(android.R.color.black));
+        switch (tag) {
+            case 0:
+                mode1Tv.setTextColor(mode1Tv.getResources().getColor(android.R.color.holo_red_light));
+                break;
+            case 1:
+                mode2Tv.setTextColor(mode2Tv.getResources().getColor(android.R.color.holo_red_light));
+                break;
+            case 2:
+                mode3Tv.setTextColor(mode3Tv.getResources().getColor(android.R.color.holo_red_light));
+                break;
+            case 3:
+                mode4Tv.setTextColor(mode4Tv.getResources().getColor(android.R.color.holo_red_light));
+                break;
+        }
     }
 
-    @Override
-    public void onUdpReceiveListener(Device device) {
-
+    private void setfrequencyStrength(int strength, int frequency, String activate) {
+        frequencyTv.setTextColor(frequencyTv.getResources().getColor(android.R.color.black));
+        strengthTv.setTextColor(strengthTv.getResources().getColor(android.R.color.black));
+        frequencyTv.setText("频率：" + frequency);
+        strengthTv.setText("强度：" + strength);
+        if (activate.equals("Frequency")) { //当前是频率模式
+            frequencyTv.setTextColor(frequencyTv.getResources().getColor(android.R.color.holo_red_light));
+        } else if (activate.equals("Strength")) { //当前是强度模式
+            strengthTv.setTextColor(strengthTv.getResources().getColor(android.R.color.holo_red_light));
+        }
     }
 
-    @Override
-    public void onTcpReceiveListener(String msg) {
-        MessageBox.show(this.getActivity(), msg, "接收到TCP信息");
-        mode1Tv.setText(msg);
-        System.out.println("TCp:" + msg);
+    private void setOnOrOff(boolean tag) {
+        if (tag) //开机状态
+            remoteControl.setCoreBitmap(ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.boot));
+        else //关机状态
+            remoteControl.setCoreBitmap(ImageUtils.drawable2Bitmap(getActivity(), R.mipmap.notboot));
     }
+
+    NetworkHelp.OnNetReceiveListener netReceiveListener = new NetworkHelp.OnNetReceiveListener() {
+        @Override
+        public void onUdpReceiveListener(Gson gson, NetMessage netMessage) {
+
+        }
+
+        @Override
+        public void onTcpReceiveListener(Gson gson, NetMessage netMessage) {
+            if (netMessage.MsgId != Message.Command_MsgId || !netMessage.MsgStatus) return;
+            try {
+                Device device = netMessage.JsonToObject(gson, Device.class);
+                if (device == null) return;
+
+                android.os.Message msg = new android.os.Message();
+                msg.what = COMMANDRESULT;
+                msg.obj = device;
+                handler.sendMessage(msg); //告诉主线程去更新UI
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 }

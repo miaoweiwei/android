@@ -17,10 +17,11 @@ import com.shnuedu.customControl.CustomViewPager;
 import com.shnuedu.customControl.MyFragmentPagerAdapter;
 import com.shnuedu.customControl.RoundProgress;
 import com.shnuedu.fragmentpage.DeviceFragment;
+import com.shnuedu.fragmentpage.DeviceWifiFragment;
 import com.shnuedu.fragmentpage.FeaturesFragment;
 import com.shnuedu.fragmentpage.SettingFragment;
 import com.shnuedu.fragmentpage.StatisticsFragment;
-import com.shnuedu.tools.MessageBox;
+import com.shnuedu.tools.Device;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements
         FeaturesFragment.OnFragmentInteractionListener,
         SettingFragment.OnFragmentInteractionListener,
         StatisticsFragment.OnFragmentInteractionListener,
-        DeviceFragment.OnFragmentInteractionListener {
+        DeviceFragment.OnFragmentInteractionListener,
+        DeviceWifiFragment.OnFragmentInteractionListener {
     /**
      * 标题
      */
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         //设置标题为某个layout
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.customtitlebar);
+        //设置返回上一页的按钮
         comebcakIm = findViewById(R.id.comeback_iv_id);
         comebcakIm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements
         mFragments.add(StatisticsFragment.newInstance("统计"));
         mFragments.add(SettingFragment.newInstance("设置"));
         mFragments.add(DeviceFragment.newInstance("设备"));
+        mFragments.add(DeviceWifiFragment.newInstance("Wifi"));
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragments);
         mViewPager.setAdapter(mAdapter);
 //        mViewPager.setRevealOnFocusHint();
@@ -193,8 +197,19 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override // 功能页面的事件
-    public void onFeaturesFragmentInteraction(Uri uri) {
-
+    public void onFeaturesFragmentInteraction(String args) {
+        try {
+            String[] argArr = args.split("#");
+            switch (argArr[0]) {
+                case "Power":
+                    surplusBatteryRoundProgress.setSweepValue(Integer.parseInt(argArr[1]));
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override // 统计页面的事件
@@ -219,7 +234,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override // 设备页面的事件
-    public void onDeviceFragmentInteraction(String args) {
-        MessageBox.show(this, args);
+    public void onDeviceFragmentInteraction(Device device) {
+        mViewPager.setCurrentItem(4, true);
+        setMyTitle(mTitle.getText().toString(), mTitle.getText().toString(), true);
+        mViewPager.setScanScroll(true);
+        mViewPager.setNoScrollAnimation(true);
+    }
+
+    @Override //wifi列表页面的事件
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

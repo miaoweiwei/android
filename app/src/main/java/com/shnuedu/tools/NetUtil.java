@@ -1,5 +1,9 @@
 package com.shnuedu.tools;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
@@ -11,6 +15,31 @@ import java.util.Enumeration;
  * 主机IP相关的方法
  */
 public class NetUtil {
+
+    public static boolean isWifiEnabled(Context mContext) {
+        if (mContext == null) {
+            throw new NullPointerException("Global context is null");
+        }
+        WifiManager wifiMgr = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (!wifiMgr.isWifiEnabled()) { //wifi没有开启
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 对网络连接状态进行判断
+     *
+     * @return true, 可用； false， 不可用
+     */
+    public static boolean isOpenNetwork(Context ctx) {
+        ConnectivityManager connManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connManager.getActiveNetworkInfo() != null) {
+            return connManager.getActiveNetworkInfo().isConnected();
+        }
+        return false;
+    }
+
     /**
      * 获取本机当前的IPV4地址
      *
@@ -38,7 +67,7 @@ public class NetUtil {
      *
      * @return
      */
-    public static String getBroadcastAdder() {
+    public static String getBroadcastAddress() {
         try {
             for (Enumeration<NetworkInterface> niEnum = NetworkInterface.getNetworkInterfaces(); niEnum.hasMoreElements(); ) {
                 NetworkInterface ni = niEnum.nextElement();

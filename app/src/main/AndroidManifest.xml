@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shnuedu.goodmother">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!--访问网络状态的权限-->
+    <uses-permission android:name="android.permission.INTERNET" />  <!--访问互联网的权限-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取网络状态改变的权限 -->
+
 
     <application
         android:allowBackup="true"
@@ -13,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/LunchTheme">
+            android:theme="@style/LunchTheme"> <!--App的启动页，首页-->
         </activity>
         <activity android:name=".Style3Activity" />
         <activity android:name=".Style2Activity" />
@@ -26,7 +29,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->

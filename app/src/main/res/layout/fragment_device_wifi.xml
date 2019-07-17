@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.shnuedu.fragmentpage.DeviceFragment">
+    tools:context="com.shnuedu.fragmentpage.DeviceWifiFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="选取设备"
+            android:text="Wifi"
             android:textAlignment="center"
             android:textColor="@color/TextColoDefault"
             android:textSize="30dp" />
@@ -28,17 +28,17 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/device_search_btn_id"
+                android:id="@+id/wifi_search_btn_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/edit_background"
-                android:text="搜索"
+                android:text="扫描WIfi"
                 android:textAlignment="center"
                 android:textSize="@dimen/text_size" />
 
             <ProgressBar
-                android:id="@+id/device_refresh_pg_id"
+                android:id="@+id/wifi_refresh_pg_id"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
@@ -47,11 +47,10 @@
         </RelativeLayout>
 
         <ListView
-            android:id="@+id/device_lv_id"
+            android:id="@+id/wifi_lv_id"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="top"
             android:layout_weight="1" />
     </LinearLayout>
-
 </FrameLayout>
