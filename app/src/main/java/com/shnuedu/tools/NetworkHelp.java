@@ -89,6 +89,7 @@ public class NetworkHelp extends Thread {
         }
     }
 
+    // 这里使用到啦观察者模式，让所有的需要接收网络信息的类都实现这个接口也就是作为观察者。当前的类为被观察者，当收到网络请求就通知所有的观察者
     public interface OnNetReceiveListener {
         void onUdpReceiveListener(Gson gson, NetMessage netMessage);
 
